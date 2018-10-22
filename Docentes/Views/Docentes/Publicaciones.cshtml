@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Docentes.Models.Docente>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+.
+<div class="row">
+
+    <div class="col-6">
+        @Html.DisplayForModel()
+    </div>
+    <div class="col-6" id="visualicedataviaajax">
+
+    </div>
+
+</div>
+
+
+
+
+
+@section scripts {
+<script type="text/javascript">
+    function loadData(url, target_id) {
+        $("#" + target_id).html("<div class='text-center'><img src='/Images/loading.gif' /></div>");
+        $("#" + target_id).load(url);
+    }
+</script>
+}
