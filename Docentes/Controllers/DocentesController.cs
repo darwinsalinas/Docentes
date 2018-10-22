@@ -43,11 +43,20 @@ namespace Docentes.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Docente docente = db.Docentes.Find(id).Include(d => d.Publicaciones);
+            Docente docente = db.Docentes.Find(id);
+
             if (docente == null)
             {
                 return HttpNotFound();
             }
+
+            ViewBag.Publicaciones = db.Publicacions.Where(x => x.DocenteId == id);
+            docente.Publicaciones = db.Publicacions.Where(x => x.DocenteId == id).ToList();
+
+
+            //context.Entry(student).Collection(s => s.StudentCourses).Load(); // loads Courses collection 
+
+            //ViewBag.Publicaciones = docente.Publicaciones.ToList();
             return PartialView(docente);
         }
 
@@ -57,11 +66,12 @@ namespace Docentes.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Docente docente = db.Docentes.Find(id).Include(d => d.Proyectos);
+            Docente docente = db.Docentes.Find(id);
             if (docente == null)
             {
                 return HttpNotFound();
             }
+            ViewBag.Proyectos = docente.Proyectos;
             return PartialView(docente);
         }
 
