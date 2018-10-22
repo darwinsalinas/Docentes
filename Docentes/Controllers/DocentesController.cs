@@ -35,6 +35,37 @@ namespace Docentes.Controllers
             return View(docente);
         }
 
+
+            // GET: Docentes/Details/5
+        public ActionResult Publicaciones(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Docente docente = db.Docentes.Find(id).Include(d => d.Publicaciones);
+            if (docente == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(docente);
+        }
+
+        public ActionResult Proyectos(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Docente docente = db.Docentes.Find(id).Include(d => d.Proyectos);
+            if (docente == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(docente);
+        }
+
+
         // GET: Docentes/Create
         public ActionResult Create()
         {
@@ -42,7 +73,7 @@ namespace Docentes.Controllers
         }
 
         // POST: Docentes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -74,7 +105,7 @@ namespace Docentes.Controllers
         }
 
         // POST: Docentes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
