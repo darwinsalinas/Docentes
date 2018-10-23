@@ -71,7 +71,10 @@ namespace Docentes.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Proyectos = docente.Proyectos;
+
+            ViewBag.Proyectos = db.Proyectoes.Where(x => x.DocenteId == id);
+            docente.Proyectos = db.Proyectoes.Where(x => x.DocenteId == id).ToList();
+
             return PartialView(docente);
         }
 
