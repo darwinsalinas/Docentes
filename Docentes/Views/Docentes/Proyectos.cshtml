@@ -7,21 +7,18 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-@Model.Nombres
+@Model.FullName
 <div class="table-responsive-sm">
     <table class="table">
         <tr>
             <th>
-                Titulo
+                Nombre
             </th>
             <th>
-                Año
+                Duración
             </th>
             <th>
-                Tipo
-            </th>
-            <th>
-                Editorial
+                Patrocinador
             </th>
             <th></th>
         </tr>
@@ -29,9 +26,6 @@
         @foreach (var item in Model.Proyectos)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Docente.Nombres)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nombre)
                 </td>

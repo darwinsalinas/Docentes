@@ -7,7 +7,7 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "Docentes", FormMethod.Post, new { enctype = "multipart/form-data"  }))
 {
     @Html.AntiForgeryToken()
     
@@ -44,6 +44,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Imagen, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Imagen, "", new { @class = "text-danger" })
+                <input type="file" id="Imagen" name="Imagen">
             </div>
         </div>
 

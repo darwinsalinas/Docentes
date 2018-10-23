@@ -16,7 +16,7 @@ namespace Docentes.Models
         public string Apellidos { get; set; }
         [DisplayName("No INSS"), Required]
         public string Inss { get; set; }
-        [DisplayName("Imagen"), Required]
+        [DisplayName("Imagen")]
         public string Imagen { get; set; }
 
 

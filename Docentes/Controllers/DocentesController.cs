@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -13,6 +14,7 @@ namespace Docentes.Controllers
     public class DocentesController : Controller
     {
         private DocentesContext db = new DocentesContext();
+        private Random rnd = new Random();
 
         // GET: Docentes
         public ActionResult Index()
@@ -94,6 +96,20 @@ namespace Docentes.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                HttpPostedFileBase fileUpload = Request.Files[0];
+                if (fileUpload.ContentLength > 0)
+                {
+                    //var fileName = Path.GetFileName(fileUpload.FileName).Trim();
+                    var fileExtension = Path.GetExtension(fileUpload.FileName);
+                    var identificador = rnd.Next(1, 9999);
+                    var fileName = $"{docente.GetHashCode()}{identificador}{fileExtension}";
+                    var path = Path.Combine(Server.MapPath("~/Files/"), $"{docente.GetHashCode()}{identificador}{fileExtension}");
+                    fileUpload.SaveAs(path);
+                    docente.Imagen = fileName;
+                }
+
+
                 db.Docentes.Add(docente);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -126,6 +142,22 @@ namespace Docentes.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                HttpPostedFileBase fileUpload = Request.Files[0];
+                if (fileUpload.ContentLength > 0)
+                {
+                    //var fileName = Path.GetFileName(fileUpload.FileName).Trim();
+                    var fileExtension = Path.GetExtension(fileUpload.FileName);
+                    
+                    var identificador = rnd.Next(1, 9999);
+                    var fileName = $"{docente.GetHashCode()}{identificador}{fileExtension}";
+                    var path = Path.Combine(Server.MapPath("~/Files/"), $"{docente.GetHashCode()}{identificador}{fileExtension}");
+                    fileUpload.SaveAs(path);
+                    docente.Imagen = fileName;
+                }
+
+
+
                 db.Entry(docente).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
