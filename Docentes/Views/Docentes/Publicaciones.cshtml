@@ -5,58 +5,57 @@
 }
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="/Publicaciones/Create">Nueva Publicación</a>
 </p>
 
 
 
 
-        @Model.FullName
-        <div class="table-responsive-sm">
-            <table class="table">
-                <tr>
-                    <th>
-                        Titulo
-                    </th>
-                    <th>
-                        Año
-                    </th>
-                    <th>
-                        Tipo
-                    </th>
-                    <th>
-                        Editorial
-                    </th>
-                    <th></th>
-                </tr>
+<h4>Publicaciones de: @Model.FullName</h4>
+<div class="table-responsive-sm">
+    <table class="table">
+        <tr>
+            <th>
+                Titulo
+            </th>
+            <th>
+                Año
+            </th>
+            <th>
+                Tipo
+            </th>
+            <th>
+                Editorial
+            </th>
+            <th></th>
+        </tr>
 
-                @foreach (var item in Model.Publicaciones)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Titulo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Año)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Tipo.Tipo)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Editorial.Nombre)
-                        </td>
-                        <td>
-                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                        </td>
-                    </tr>
-                }
+        @foreach (var item in Model.Publicaciones)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Año)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tipo.Tipo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Editorial.Nombre)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "Publicaciones", new { id = item.Id }, null) |
+                    @Html.ActionLink("Delete", "Delete", "Publicaciones", new { id = item.Id }, null)
+                </td>
+            </tr>
+        }
 
-            </table>
-
+    </table>
 
 
-        </div>
+
+</div>
 
 
