@@ -51,14 +51,7 @@ namespace Docentes.Controllers
             {
                 return HttpNotFound();
             }
-
-            ViewBag.Publicaciones = db.Publicacions.Where(x => x.DocenteId == id);
             docente.Publicaciones = db.Publicacions.Where(x => x.DocenteId == id).ToList();
-
-
-            //context.Entry(student).Collection(s => s.StudentCourses).Load(); // loads Courses collection 
-
-            //ViewBag.Publicaciones = docente.Publicaciones.ToList();
             return PartialView(docente);
         }
 
@@ -73,10 +66,7 @@ namespace Docentes.Controllers
             {
                 return HttpNotFound();
             }
-
-            ViewBag.Proyectos = db.Proyectoes.Where(x => x.DocenteId == id);
             docente.Proyectos = db.Proyectoes.Where(x => x.DocenteId == id).ToList();
-
             return PartialView(docente);
         }
 
@@ -103,8 +93,8 @@ namespace Docentes.Controllers
                     //var fileName = Path.GetFileName(fileUpload.FileName).Trim();
                     var fileExtension = Path.GetExtension(fileUpload.FileName);
                     var identificador = rnd.Next(1, 9999);
-                    var fileName = $"{docente.GetHashCode()}{identificador}{fileExtension}";
-                    var path = Path.Combine(Server.MapPath("~/Files/"), $"{docente.GetHashCode()}{identificador}{fileExtension}");
+                    var fileName = $"{docente.GetHashCode()}{fileExtension}";
+                    var path = Path.Combine(Server.MapPath("~/Files/"), $"{fileName}");
                     fileUpload.SaveAs(path);
                     docente.Imagen = fileName;
                 }
@@ -138,7 +128,7 @@ namespace Docentes.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Nombres,Apellidos,Inss,Imagen")] Docente docente)
+        public ActionResult Edit([Bind(Include = "Id,Nombres,Apellidos,Inss")] Docente docente)
         {
             if (ModelState.IsValid)
             {
@@ -146,19 +136,19 @@ namespace Docentes.Controllers
                 HttpPostedFileBase fileUpload = Request.Files[0];
                 if (fileUpload.ContentLength > 0)
                 {
-                    //var fileName = Path.GetFileName(fileUpload.FileName).Trim();
                     var fileExtension = Path.GetExtension(fileUpload.FileName);
-                    
                     var identificador = rnd.Next(1, 9999);
-                    var fileName = $"{docente.GetHashCode()}{identificador}{fileExtension}";
-                    var path = Path.Combine(Server.MapPath("~/Files/"), $"{docente.GetHashCode()}{identificador}{fileExtension}");
+                    var fileName = $"{docente.GetHashCode()}{fileExtension}";
+                    var path = Path.Combine(Server.MapPath("~/Files/"), $"{fileName}");
                     fileUpload.SaveAs(path);
                     docente.Imagen = fileName;
                 }
-
-
-
                 db.Entry(docente).State = EntityState.Modified;
+                if (docente.Imagen == null)
+                {
+                    db.Entry(docente).Property("Imagen").IsModified = false;
+                }
+               
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

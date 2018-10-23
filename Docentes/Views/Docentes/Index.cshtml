@@ -5,15 +5,19 @@
 }
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    <a href="#" class="btn btn-link" data-toggle="modal" data-target="#docenteModal">
+        Nuevo Docente
+    </a>
 </p>
-    
+
+@Html.Partial("Create", new Docentes.Models.Docente())
+
 <div class="row">
 
     <div class="col-6" style="min-height:70vh; max-height:70vh; overflow:scroll">
         @Html.DisplayForModel()
     </div>
-    <div class="col-6" id="visualicedataviaajax" >
+    <div class="col-6" id="visualicedataviaajax">
 
     </div>
 
@@ -24,10 +28,10 @@
 
 
 @section scripts {
-<script type="text/javascript">
-    function loadData(url, target_id) {
-        $("#" + target_id).html("<div class='text-center'><img src='/Images/loading.gif' /></div>");
-        $("#" + target_id).load(url);
-    }
-</script>
+    <script type="text/javascript">
+        function loadData(url, target_id) {
+            $("#" + target_id).html("<div class='text-center'><img src='/Images/loading.gif' /></div>");
+            $("#" + target_id).load(url);
+        }
+    </script>
 }
